@@ -42,7 +42,14 @@ public class GetMethodQuiz08 extends HttpServlet{
 			//System.out.println(line);
 			
 			if(line.contains(keyword)) {
-				out.print(line + "<br>");
+				// 1)
+//				line = line.replace(keyword, "<b>" + keyword + "</b>");  // replace를 사용할때는 저장필요
+//				out.print(line + "<br>");
+				
+				// 2)
+				String[] words = line.split(keyword);
+				out.print(words[0] + "<b>" + keyword + "</b>" + words[1] + "<br>");
+				
 			}
 		}	
 		out.print("</body></html>");
