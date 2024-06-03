@@ -31,7 +31,11 @@ list.add(map);
 	<%
 		// request params
 		String keyword = request.getParameter("keyword");
+	
+	 	// 4점 이하 제외
 		String starFilter = request.getParameter("starFilter");
+	 	boolean exclude = starFilter != null; // 체크됨 => true 4점 이하 제외
+
 	%>
 
 	<div class="container">
@@ -46,28 +50,36 @@ list.add(map);
 			</thead>
 			<tbody>
 			<%
-			    /* 향상된 for문으로 풀이
+			    // 향상된 for문으로 풀이
 			    for (Map<String, Object> item : list) {
+			    	if(keyword.equals(item.get("menu"))) {
+			    	// skip 조건이 체크되어 있고 스킵 되어야 할 때 skip(continue)
+			    	if(exclude && (double)item.get("point") <= 4.0) {
+			    		continue; // 안뿌리고 skip
+			    	}
 			    	// 실제 출력은 td에 하기와 같이 진행
-			    	<td><%= item.get("menu")% </td>
-			    	<td><%= item.get("name")% </td>
-			    	<td><%= item.get("point")% </td>
-			    }
-			    */
-			    
+			 %>
+			    	<td><%= item.get("menu")%> </td>
+			    	<td><%= item.get("name")%> </td>
+			    	<td><%= item.get("point")%> </td>
+			  <%  
+			   /* 내 풀이
 			    if (keyword != null) {
 				    for (int i = 0; i < list.size(); i++) {
 				    	if (keyword.equals(list.get(i).get("menu"))) {
-			%>
-				<tr>
-					<td><%= list.get(i).get("menu") %></td>
-					<td><%= list.get(i).get("name") %></td>
-					<td><%= list.get(i).get("point") %></td>
-				</tr>
+
+				tr
+					td %= list.get(i).get("menu") % /td
+					td %= list.get(i).get("name") % /td
+					td %= list.get(i).get("point") % /td
+				/tr
+				*/			
+				 %>
 			<%
-				    	}
+
 				    }
-			    }
+			}
+
 			%>
 			</tbody>
 		</table>
