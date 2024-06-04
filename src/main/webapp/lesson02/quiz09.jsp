@@ -61,12 +61,12 @@
     list.add(map);
 %>
 	<div id="wrap" class="container">
-		<header class="d-flex align-items-center justify-content-center bg-info">
+		<header class="d-flex align-items-center justify-content-center">
 			<h2 class="text-danger font-weight-bold">Sk Broadband IPTV</h2>
 		</header>
 		<nav class="bg-danger d-flex align-items-center justify-content-center">
 			<ul class="nav nav-fill w-100">
-				<li class="nav-item"><a href="/lesson02/quiz09.jsp?category=전체" class="nav-link">전체</a></li>
+				<li class="nav-item"><a href="/lesson02/quiz09.jsp" class="nav-link">전체</a></li>
 				<li class="nav-item"><a href="/lesson02/quiz09.jsp?category=지상파" class="nav-link">지상파</a></li>
 				<li class="nav-item"><a href="/lesson02/quiz09.jsp?category=드라마" class="nav-link">드라마</a></li>
 				<li class="nav-item"><a href="/lesson02/quiz09.jsp?category=예능" class="nav-link">예능</a></li>
@@ -74,10 +74,7 @@
 				<li class="nav-item"><a href="/lesson02/quiz09.jsp?category=스포츠" class="nav-link">스포츠</a></li>
 			</ul>
 		</nav>
-		<%
-			String cate = request.getParameter("category");
-		%>
-		<section class="contents bg-primary">
+		<section class="contents">
 			<table class="table text-center">
 				<thead>
 					<tr>
@@ -88,8 +85,12 @@
 				</thead>
 				<tbody>
 				<%
+					// request param
+					String cate = request.getParameter("category");
+				
 					for (Map<String, String> item : list) {
-						if(item.get("category").equals(cate)){
+						if(cate == null || item.get("category").equals(cate)) {
+						// 카테고리 null(전체) 또는 카테고리 일치 행
 				%>
 					<tr>
 						<td><%= item.get("ch") %></td>
@@ -103,7 +104,7 @@
 				</tbody>
 			</table>
 		</section>
-		<footer class="bg-success d-flex align-items-center justify-content-center">
+		<footer class="d-flex align-items-center justify-content-center">
 			<small>Copyrigth 2024. Sk Broadband IPTV All Rights Reserved.</small>
 		</footer>
 	</div>
